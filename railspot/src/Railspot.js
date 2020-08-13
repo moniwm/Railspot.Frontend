@@ -8,6 +8,7 @@ import BuyTickets from "./BuyTickets";
 import axios from 'axios';
 import { BrowserRouter as Router,  Switch, Route } from 'react-router-dom';
 import TicketsPurchased from './TicketsPurchased';
+import Nav from "./Nav";
 
 export default class Railspot extends React.Component{
         
@@ -18,7 +19,7 @@ export default class Railspot extends React.Component{
                     <Route path="/" exact component={LogIn} />
                     <Route path="/SignUp" component={SignUp} />
                     <Route path="/ModifyRoutes" component={ModifyRoutes} />
-                    <Route path="/BuyTickets" component={BuyTickets} />
+                    <Route path="/BuyTickets" component={Nav, BuyTickets} />
                     <Route path="/Profile" component={Profile} />
                     <Route path="/Admin" component={Admin} />
                     <Route path="/TicketsPurchased" component={TicketsPurchased} />
