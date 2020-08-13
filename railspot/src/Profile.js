@@ -32,8 +32,12 @@ export default function Profile() {
         { from: "Limón", to: "Puntarenas", cost: 1040, date: "30/3/2020", hour: "21:30" },
     ]);
 
+    const [search, setSearch] = useState();
+
+    const [query, setQuery] = useState("");
+
     useEffect(() => {
-        //getTickets();
+        //getDateTickets();
         console.log("Use effect has been used")
     }, []);
 
@@ -46,18 +50,49 @@ export default function Profile() {
 
     const getDateTickets = e =>{
         e.preventDefault();
+        var init ={
+            method: 'GET',
+            mode: 'no-cors',
+        };
+        fetch ("URL de conseguir la lista de tiquetes ordenada", init)
+        .then(function(response){
+            tickets = response.json();
+        })
+        .then(function(myJson){
+            console.log(myJson);
+        });
     }
 
     const getRouteTickets = e =>{
         e.preventDefault();
+        var init = {
+            method: 'GET',
+            mode: 'no-cons',
+        };
+        //Este fetch necesita parámetros query
+        //con el valor de query en lo que busca
+        fetch("URL de conseguir la lista según lugar", init)
+        .then(function(response){
+            tickets = response.json();
+        })
+        .then(function(myJson){
+            console.log(myJson);
+        });
+    }
+
+    const updateSearch = e =>{
+        setSearch(e.target.value);
+        setQuery(search);
     }
 
     return (
         <div className = {classes.profile}>
             <Nav />
-            <form className={classes.form}>
+            <form onSubmit={getRouteTickets} className={classes.form}>
 
                 <TextField
+                    value={search}
+                    onChange={updateSearch}
                     variant="outlined"
                     margin="normal"
                     required
@@ -79,6 +114,9 @@ export default function Profile() {
                     Search by Route
                 </Button>
 
+            </form>
+
+            <form onSubmit={getDateTickets} className={classes.form}>
                 <Button
                     type="submit"
                     fullWidth
@@ -88,7 +126,6 @@ export default function Profile() {
                     >
                     Search by Date
                 </Button>
-
             </form>
 
             <div className={classes.tickets}>
