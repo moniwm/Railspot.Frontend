@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Nav from "./Nav";
 import "./Admin.css";
-import DeleteImage from "./images/deleteRoute.png"
+import AddImage from "./images/addRoute.png"
 
 
 export default function AddRoute(){
@@ -14,14 +14,11 @@ export default function AddRoute(){
 
     const postStation = e =>{
         e.preventDefault();
-        // var init={
-        //     method: 'POST',
-        //     mode: 'no-cons',
-        // };
         fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-station?name=${input}`, {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);
         });
+        setInput("");
     }
 
     return(
@@ -30,11 +27,11 @@ export default function AddRoute(){
             <Nav />
             <div className="Page">
                 <section className="Box">
-                    <img src={DeleteImage}></img>
+                    <img src={AddImage}></img>
                     
                     <div>
                         <h3 className="RouteText" >Station Name</h3>
-                        <input onChange={updateInput} className="RouteInput" type="text"></input>
+                        <input value={input} onChange={updateInput} className="RouteInput" type="text"></input>
                     </div>
                     
                     <form onSubmit={postStation}>
