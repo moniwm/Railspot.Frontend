@@ -7,10 +7,10 @@ export default function AdminBoxOption({target, image, text}){
     return(
         
         <div>
-            <div className="ModifyRoute-Box">
+            <div className="Box">
                 <img src={image}/>
                 <Link style={{ textDecoration: "none" }} to={target}>
-                    <h4 className="Button">{text}</h4>
+                    <h4 className="LinkButton">{text}</h4>
                 </Link>
 
             </div>     
