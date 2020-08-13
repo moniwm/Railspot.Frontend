@@ -59,10 +59,6 @@ export default function DeleteRoute(){
 
             </div>
             
-        
-
-          
-            
         </div>
 
        

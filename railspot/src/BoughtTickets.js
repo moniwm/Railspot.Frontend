@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Nav from "./Nav";
 import Ticket from './Ticket';
-import "./boughtTickets.css";
+import "./Admin.css";
 import TicketImage from "./images/tickets.png";
 
 export default function BoughtTickets() {
 
     const [tickets, setTickets] = useState([]);
 
-    const [search, setSearch] = useState();
+    const [search, setSearch] = useState([""]);
 
     const [station, setStation] = useState();
 
     const [id, setId] = useState();
-
-    useEffect(() => {
-        //getDateTickets();
-        console.log("Use effecr has been used");
-    }, []);
 
     function getDateTickets() {
         fetch("Url para conseguir los tiquetes por fecha"
@@ -58,24 +53,22 @@ export default function BoughtTickets() {
         setSearch(e.target.value);
     }
 
-
     return (
         <div>
             <Nav />
-            <div className="page">
+            <div className="Page">
 
-                <section className="box">
+                <section className="Box">
                     <img src={TicketImage}></img>
 
                     <div>
-                        <input value={search} onChange={updateSearch} type="text" className="ticketInput" />
+                        <h3 className="RouteText" >Search: </h3>
+                        <input className="RouteInput" type="text" value={search} onChange={updateSearch}></input>
                     </div>
 
-                    <div>
-                        <button onClick={getDateTickets} className="RouteButton">Sort By Date</button>
-                        <button onClick={getIdTickets} className="RouteButton">Sort By Id</button>
-                        <button onClick={getStationTickets} className="RouteButton">Sort By Station</button>
-                    </div>
+                    <button onClick={getDateTickets} className="RouteButton">Sort By Date</button>
+                    <button onClick={getIdTickets} className="RouteButton">Sort By Id</button>
+                    <button onClick={getStationTickets} className="RouteButton">Sort By Station</button>
 
                     <div>
                         {tickets.map(ticket => (
