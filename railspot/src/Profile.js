@@ -34,19 +34,12 @@ export default function Profile() {
 
     const [search, setSearch] = useState();
 
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState();
 
     useEffect(() => {
         //getDateTickets();
         console.log("Use effect has been used")
     }, []);
-
-    const getTickets = async () => {
-        const response = await fetch("Https of teh request");
-        const data = await response.json();
-        setTickets(data.hits);
-        console.log(data.hits);
-    }
 
     const getDateTickets = e =>{
         e.preventDefault();
@@ -67,7 +60,7 @@ export default function Profile() {
         e.preventDefault();
         var init = {
             method: 'GET',
-            mode: 'no-cons',
+            mode: 'no-cors',
         };
         //Este fetch necesita parámetros query
         //con el valor de query en lo que busca

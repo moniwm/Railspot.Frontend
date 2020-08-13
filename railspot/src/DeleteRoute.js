@@ -19,7 +19,10 @@ export default function DeleteRoute(){
         // });
 
         fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}`, {
-        method: 'DELETE'
+        method: 'DELETE', headers: {
+            "Access-Control-Request-Method" : "DELETE",
+            "Access-Control-Allow-Origin" : "*",
+        }
         }).then(response => response.json());
     }
 
