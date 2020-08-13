@@ -1,11 +1,18 @@
 import React from 'react';
 import Nav from "./Nav";
 
-export default function ModifyRoutes(){
+export default function AddRoute(){
     return(
         
         <div>
             <Nav />
-            Modify Routes</div>
+
+            <input></input>
+
+          
+            
+        </div>
+
+       
     )
 }

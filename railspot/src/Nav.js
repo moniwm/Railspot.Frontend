@@ -25,7 +25,8 @@ export default function Nav(){
     const classes = useStyles();
 
     const navStyle = {
-        color: 'white'
+        color: 'white',
+        textDecoration: "none"
     };
 
     return (
