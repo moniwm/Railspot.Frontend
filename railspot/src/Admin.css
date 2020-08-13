@@ -1,0 +1,54 @@
+.Page{
+    min-height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+ 
+.Box {
+    height: 600px;
+    width: 400px;
+    background-color: white;
+    border-color: rgb(19, 123, 184);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+}
+
+.LinkButton {
+   background-color: rgb(36, 65, 95);
+   padding: 20px;
+   color: white;
+   text-emphasis-style: none;
+}
+
+.Title {
+    padding-left: 20px;
+    color:  rgb(36, 65, 95);
+}
+
+.RouteInput {
+    padding: 10px;
+}
+
+.RouteButton {
+    background-color: rgb(36, 65, 95);
+    padding: 20px;
+    color: white;
+}
+
+.RouteText {
+    padding: 10px;
+    display: inline-block;
+}
