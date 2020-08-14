@@ -10,20 +10,21 @@ export default function DeleteRoute(){
     const [stationTo, setStationTo] = useState([""]);
 
     function DeleteRouteAux() {
-        console.log("deleted from: " + stationFrom + " to: " + stationTo);
-        
-        // fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}`, 
-        // {method: "DELETE", mode:"no-cors"})
-        // .then(function(response){
-        //     console.log(response);
-        // });
 
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}`, {
-        method: 'DELETE', headers: {
-            "Access-Control-Request-Method" : "DELETE",
-            "Access-Control-Allow-Origin" : "*",
-        }
-        }).then(response => response.json());
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationTo}?destiny=${stationFrom}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        setStationFrom("");
+        setStationTo("");
     }
 
     const UpdateFrom = e => {

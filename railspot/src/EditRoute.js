@@ -9,15 +9,39 @@ export default function EditRoute(){
     const [distance, setDistance] = useState([""]);
 
     function AddRoute() {
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, {
-        method: 'PUT', mode:"no-cors"
-        }).then(response => response.json());
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationTo}?destiny=${stationFrom}&distance=${distance}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        setStationFrom("");
+        setStationTo("");
+        setDistance("");
     }
 
     function ChangeRoute() {
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, {
-        method: 'PUT', mode:"no-cors"
-        }).then(response => response.json());
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/${stationTo}?destiny=${stationFrom}&distance=${distance}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        setStationFrom("");
+        setStationTo("");
+        setDistance("");
     }
 
     const UpdateFrom = e => {

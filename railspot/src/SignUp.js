@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -26,6 +26,40 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+
+  const [firstName, setFirstName] = useState([""]);
+  const [lastName, setLastName] = useState([""]);
+  const [id, setId] = useState([""]);
+  const [email, setEmail] = useState([""]);
+  const [password, setPassword] = useState([""]);
+
+  const updateFN = e => {
+    setFirstName(e.target.value);
+  }
+
+  const updateLN = e => {
+    setLastName(e.target.value);
+  }
+
+  const updateId = e => {
+    setId(e.target.value);
+  }
+
+  const updateEmail = e => {
+    setEmail(e.target.value);
+  }
+
+  const updatePassword = e => {
+    setPassword(e.target.value);
+  }
+
+  function SignUpUser() {
+    if (!(firstName == "" || lastName == "" || id == "" || email == "" || password == "")) {
+      //Aqui va la peticion del ususario
+      return "/BuyTickets";
+    }
+    return "/";
+  }
 
   return (
     <Grid container component='main'>
@@ -98,15 +132,15 @@ export default function SignUp() {
                 </Grid>
                 
                 <Link to="/BuyTickets">
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                >
+                  <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                  >
                     Sign Up
-                </Button>
+                  </Button>
                 </Link>
                 
                 </form>
