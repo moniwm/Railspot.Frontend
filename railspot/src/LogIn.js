@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import './LogIn.css';
 import {Link} from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,25 @@ const useStyles = makeStyles((theme) => ({
 export default function LogIn() {
   const classes = useStyles();
 
+  const [id, setId] = useState([""]);
+  const [password, setPassword] = useState([""]);
+
+  const updateId = e => {
+    setId(e.target.value);
+  }
+
+  const updatePassword = e => {
+    setPassword(e.target.value);
+  }
+
+  function LogInUser() {
+    if (!(id == "" || password == "")) {
+      //Aqui va la peticion del ususario
+      return "/BuyTickets";
+    }
+    return "/";
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -53,6 +73,8 @@ export default function LogIn() {
               name="id"
               autoComplete="id"
               autoFocus
+              value={id}
+              onChange={updateId}
             />
             <TextField
               variant="outlined"
@@ -64,19 +86,21 @@ export default function LogIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={updatePassword}
             />
-            <Link to="/BuyTickets">
-                <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        >
-                        Sign In
-                </Button>
-            </Link>
             
+            <Link to={LogInUser}>
+              <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  >
+                  Sign In
+                </Button>
+            </Link>    
             <Grid container>
               <Grid item>
                 <Link to="/SignUp" variant="body2">

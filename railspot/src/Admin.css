@@ -1,5 +1,5 @@
 .Page{
-    min-height: 100vh;
+    min-height: 50vh;
     background-color: white;
     display: flex;
     flex-direction: row;
@@ -8,8 +8,8 @@
 }
  
 .Box {
-    height: 600px;
-    width: 400px;
+    height: 550px;
+    width: 350px;
     background-color: white;
     border-color: rgb(19, 123, 184);
     border-width: 2px;
