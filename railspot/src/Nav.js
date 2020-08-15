@@ -31,7 +31,7 @@ export default function Nav(){
         textDecoration: "none"
     };
 
-    const loggedUser = User.getInstance;
+    const loggedUser = User.getInstance();
 
     function AdminAccess(){
         if (loggedUser.admin){

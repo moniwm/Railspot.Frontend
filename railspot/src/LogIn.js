@@ -84,7 +84,7 @@ export default function LogIn() {
         return "/EditRoute";
       }
       else {
-        //setHasAccess(false);
+        setHasAccess(false);
         return "/";
       }   
     }

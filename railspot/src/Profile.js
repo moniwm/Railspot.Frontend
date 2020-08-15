@@ -4,6 +4,8 @@ import { makeStyles, withTheme } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Nav from "./Nav";
+import User from './User' ;
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,114 +22,77 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 
+    h5: {
+        alignContent: 'center',
+        color: 'blue',
+        fontSize: '26',
+    },
+    h5: {
+        alignContent: 'center',
+        color: 'blue',
+        fontSize: '20',
+    },
+    divprin: {
+        alignContent: 'center',
+    }
+
 }));
 
 export default function Profile() {
 
     const classes = useStyles();
 
-    const [tickets, setTickets] = useState([
-        { from: "Cartago", to: "San José", cost: 540, date: "30/8/2019", hour: "20:40" },
-        { from: "Heredia", to: "Guadalupe", cost: 740, date: "5/8/2017", hour: "2:40" },
-        { from: "Limón", to: "Puntarenas", cost: 1040, date: "30/3/2020", hour: "21:30" },
-    ]);
+    const [tickets, setTickets] = useState([]);
 
     const [search, setSearch] = useState();
 
     const [query, setQuery] = useState();
 
+    const lUser = User.getInstance ();
+
     useEffect(() => {
-        //getDateTickets();
+        getUserTickets();
         console.log("Use effect has been used")
     }, []);
 
-    const getDateTickets = e =>{
-        e.preventDefault();
-        var init ={
-            method: 'GET',
-            mode: 'no-cors',
-        };
-        fetch ("URL de conseguir la lista de tiquetes ordenada", init)
-        .then(function(response){
-            tickets = response.json();
-        })
-        .then(function(myJson){
-            console.log(myJson);
-        });
+    const getUserTickets = e =>{
+        const myData = fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-user/${lUser.id}?From=1&Authorization=1234`)
+            .then(function (resp) {
+                return resp.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                setTickets(data);
+            });
     }
 
-    const getRouteTickets = e =>{
-        e.preventDefault();
-        var init = {
-            method: 'GET',
-            mode: 'no-cors',
-        };
-        //Este fetch necesita parámetros query
-        //con el valor de query en lo que busca
-        fetch("URL de conseguir la lista según lugar", init)
-        .then(function(response){
-            tickets = response.json();
-        })
-        .then(function(myJson){
-            console.log(myJson);
-        });
-    }
-
-    const updateSearch = e =>{
-        setSearch(e.target.value);
-        setQuery(search);
-    }
 
     return (
         <div className = {classes.profile}>
             <Nav />
-            <form onSubmit={getRouteTickets} className={classes.form}>
+            <div className={classes.divprin}>
+                <h5 className={classes.h5}> My Profile: </h5>
+                <h4 className={classes.h4}>{lUser.name}</h4>
+                <h5 className={classes.h5}>Email: </h5>
+                <h4 className={classes.h4}>{lUser.email}</h4>
+                <h5 className={classes.h5}>Id: </h5>
+                <h4 className={classes.h4}>{lUser.id}</h4>
 
-                <TextField
-                    value={search}
-                    onChange={updateSearch}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="search"
-                    label="SEARCH"
-                    name="search"
-                    autoComplete="search"
-                    autoFocus
-                />
+            </div>
+            
 
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    >
-                    Search by Route
-                </Button>
 
-            </form>
-
-            <form onSubmit={getDateTickets} className={classes.form}>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    >
-                    Search by Date
-                </Button>
-            </form>
 
             <div className={classes.tickets}>
                 {tickets.map(ticket => (
-                    <Ticket from={ticket.from}
-                        to={ticket.to}
-                        cost={ticket.cost}
+                    <Ticket 
+                        userId={ticket.userId}
+                        departureStation={ticket.departureStation}
+                        arrivalStation={ticket.arrivalStation}
+                        price={ticket.price}
                         date={ticket.date}
                         hour={ticket.hour}
+                        amount={ticket.amount}
                         fullWidth />
                 ))}
             </div>

@@ -3,49 +3,55 @@ import Nav from "./Nav";
 import Ticket from './Ticket';
 import "./Admin.css";
 import TicketImage from "./images/tickets.png";
+import User from './User' ;
+import { set } from 'date-fns';
+
 
 export default function BoughtTickets() {
 
     const [tickets, setTickets] = useState([]);
 
-    const [search, setSearch] = useState([""]);
+    const [search, setSearch] = useState();
 
     const [station, setStation] = useState();
 
     const [id, setId] = useState();
 
+    const lUser = User.getInstance ();
+
     function getDateTickets() {
-        fetch("Url para conseguir los tiquetes por fecha"
-            , { method: 'GET', mode: 'no-cors' })
-            .then(function (response) {
-                tickets = response.json()
+        const myData = fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-date/${search}?From=${lUser.id}&Authorization=${lUser.password}`)
+            .then(function (resp) {
+                return resp.json();
             })
-            .then(function (myJson) {
-                console.log(myJson);
+            .then(function (data) {
+                console.log(data);
+                console.log("Aquíllego");
+                setTickets(data);
             });
     }
 
     function getIdTickets() {
-        setId(search);
-        fetch("Url para conseguir tiquetes por id"
-            , { method: 'GET', mode: 'no-cors' })
-            .then(function (response) {
-                tickets = response.json();
+        const myData = fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-user/${search}?From=${lUser.id}&Authorization=${lUser.password}`)
+            .then(function (resp) {
+                return resp.json();
             })
-            .then(function (myJson) {
-                console.log(myJson);
+            .then(function (data) {
+                console.log(data);
+                console.log("Aquíllego");
+                setTickets(data);
             });
     }
 
     function getStationTickets() {
-        setStation(search);
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-station/${search}?From=1&Authorization=password`
-            , { method: 'GET', mode: 'no-cors' })
-            .then(function (response) {
-                tickets = response.json();
+        const myData = fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-station/${search}?From=${lUser.id}&Authorization=${lUser.password}`)
+            .then(function (resp) {
+                return resp.json();
             })
-            .then(function (myJson) {
-                console.log(myJson);
+            .then(function (data) {
+                console.log(data);
+                console.log("Aquíllego");
+                setTickets(data);
             });
     }
 
@@ -57,9 +63,9 @@ export default function BoughtTickets() {
     return (
         <div>
             <Nav />
-            <div className="Page">
+            <div className="PageTicket">
 
-                <section className="Box">
+                <section className="BoxTicket">
                     <img src={TicketImage}></img>
 
                     <div>
@@ -67,17 +73,22 @@ export default function BoughtTickets() {
                         <input className="RouteInput" type="text" value={search} onChange={updateSearch}></input>
                     </div>
 
-                    <button onClick={getDateTickets} className="RouteButton">Sort By Date</button>
-                    <button onClick={getIdTickets} className="RouteButton">Sort By Id</button>
-                    <button onClick={getStationTickets} className="RouteButton">Sort By Station</button>
-
+                    <div>
+                        <button onClick={getDateTickets} className="RouteButton">Sort By Date</button>
+                        <button onClick={getIdTickets} className="RouteButton">Sort By Id</button>
+                        <button onClick={getStationTickets} className="RouteButton">Sort By Station</button>
+                    </div> 
+      
                     <div>
                         {tickets.map(ticket => (
-                            <Ticket from={ticket.from}
-                                to={ticket.to}
-                                cost={ticket.cost}
+                            <Ticket 
+                                userId={ticket.userId}
+                                departureStation={ticket.departureStation}
+                                arrivalStation={ticket.arrivalStation}
+                                price={ticket.price}
                                 date={ticket.date}
                                 hour={ticket.hour}
+                                amount={ticket.amount}
                                 fullWidth />
                         ))}
                     </div>
