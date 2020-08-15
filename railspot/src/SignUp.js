@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+import User from './User';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -86,7 +86,9 @@ export default function SignUp() {
           console.log('Request failed');
         });
 
-        return "/BuyTickets";
+        const loggedUser = new User(id, password, firstName, email);
+
+        return "/EditRoute";
       }
       else {
         //setHasAccess(false);

@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react';
 import Nav from "./Nav";
 import "./Admin.css";
 import AddImage from "./images/addRoute.png"
+import User from './User';
 
 
 export default function AddRoute(){
 
-
+    const lUser = User.getInstance ();
 
     const [input, setInput] = useState();
 
@@ -16,7 +17,7 @@ export default function AddRoute(){
 
     const postStation = e =>{
         e.preventDefault();
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-station?name=${input}`,
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-station?name=${input}&From=${lUser.id}&Authorization=${lUser.password}`,
          {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);

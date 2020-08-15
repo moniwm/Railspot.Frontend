@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import './LogIn.css';
 import {Link} from 'react-router-dom';
+import User from './User' ;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +67,9 @@ export default function LogIn() {
           console.log('HUBO UN ERROR')
         });
 
-        return "/BuyTickets";
+        const loggedUser = new User(id, password);
+
+        return "/EditRoute";
       }
       else {
         //setHasAccess(false);
