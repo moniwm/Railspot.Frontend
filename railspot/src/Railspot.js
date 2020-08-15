@@ -25,7 +25,6 @@ export default class Railspot extends React.Component{
                     <Route path="/AddRoute" component={AddRoute} />
                     <Route path="/EditRoute" component={EditRoute} />
                     <Route path="/BoughtTickets" component={BoughtTickets} />
-                    <Route path="/BuyTickets" component={BuyTickets} />
                     <Route path="/Profile" component={Profile} />
                     <Route path="/Admin" component={Admin} />
                     <Route path="/TicketsPurchased" component={TicketsPurchased} />
