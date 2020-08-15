@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
+ 
 export default function SignUp() {
   const classes = useStyles();
 
@@ -34,31 +36,92 @@ export default function SignUp() {
   const [password, setPassword] = useState([""]);
 
   const updateFN = e => {
+    e.preventDefault();
     setFirstName(e.target.value);
   }
 
   const updateLN = e => {
+    e.preventDefault();
     setLastName(e.target.value);
   }
 
   const updateId = e => {
+    e.preventDefault();
     setId(e.target.value);
   }
 
   const updateEmail = e => {
+    e.preventDefault();
     setEmail(e.target.value);
   }
 
   const updatePassword = e => {
+    e.preventDefault();
     setPassword(e.target.value);
   }
 
   function SignUpUser() {
+    return SignUpUserAux();
+  }
+
+  function SignUpUserAux() {
     if (!(firstName == "" || lastName == "" || id == "" || email == "" || password == "")) {
-      //Aqui va la peticion del ususario
+      // fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, 
+      //   {method: 'POST', mode:'no-cors'})
+      //   .then(function(response){
+      //       console.log(response);
+      //   });
+
+      // axios({
+      //   method: 'post', mode
+      //   url: "http://localhost:8080/RailSpot.BackEnd/api/sign-up",
+      //   data: {
+      //     "id": "118090892",
+      //     "name": "Juan",
+      //     "email": "juan@gmail.com",
+      //     "password": "123",
+      //     "admin": false
+      //   }
+      // });
+
+      // fetch('http://localhost:8080/RailSpot.BackEnd/api/sign-up', {
+      //   method: 'POST',
+      //   mode: "no-cors", 
+      //   headers: {
+      //     "id": "118090892",
+      //     "name": "Juan",
+      //     "email": "juan@gmail.com",
+      //     "password": "123",
+      //     "admin": false
+      //   }
+      // })
+
+      // fetch('http://localhost:8080/RailSpot.BackEnd/api/sign-up', {
+      //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      //     body: JSON.stringify({
+      //       id: "118090892",
+      //       name: "Juan",
+      //       email: "juan@gmail.com",
+      //       password: "123",
+      //       admin: false
+      //     }) // body data type must match "Content-Type" header
+      // });
+      const fullName = firstName + lastName;
+      
+      fetch(`http://localhost:8080/RailSpot.BackEnd/api/sign-up?id=${id}&name=${firstName}&email=${email}&password=${password}&admin=true`, {  
+        method: 'POST', mode: 'no-cors'
+      })
+      .then(function (data) {  
+        console.log('Request success: ', data);  
+      })  
+      .catch(function (error) {  
+        console.log('Request failure: ', error);  
+      });
+
       return "/BuyTickets";
     }
-    return "/";
+    console.log("efwf");
+    return "/SignUp";
   }
 
   return (
@@ -82,6 +145,8 @@ export default function SignUp() {
                         id="firstName"
                         label="First Name"
                         autoFocus
+                        value={firstName}
+                        onChange={updateFN}
                     />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -93,6 +158,8 @@ export default function SignUp() {
                         label="Last Name"
                         name="lastName"
                         autoComplete="lname"
+                        value={lastName}
+                        onChange={updateLN}
                     />
                     </Grid>
                     <Grid item xs={12}>
@@ -104,6 +171,8 @@ export default function SignUp() {
                         label="ID"
                         name="id"
                         autoComplete="id"
+                        value={id}
+                        onChange={updateId}
                     />
                     </Grid>
                     <Grid item xs={12}>
@@ -115,6 +184,8 @@ export default function SignUp() {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
+                        value={email}
+                        onChange={updateEmail}
                     />
                     </Grid>
                     <Grid item xs={12}>
@@ -127,25 +198,27 @@ export default function SignUp() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        value={password}
+                        onChange={updatePassword}
                     />
                     </Grid>
                 </Grid>
                 
-                <Link to="/BuyTickets">
+                <Link to={SignUpUser} preventDefault>
                   <Button
                       type="submit"
                       fullWidth
                       variant="contained"
                       color="primary"
                       className={classes.submit}
-                  >
-                    Sign Up
-                  </Button>
-                </Link>
+                      >
+                      Sign Up
+                    </Button>
+                </Link> 
                 
-                </form>
+              </form>
             </div>
-    </Container>
+          </Container>
 
     </Grid>
   );

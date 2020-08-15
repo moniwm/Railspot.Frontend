@@ -6,6 +6,8 @@ import AddImage from "./images/addRoute.png"
 
 export default function AddRoute(){
 
+
+
     const [input, setInput] = useState();
 
     const updateInput = e =>{
@@ -14,7 +16,8 @@ export default function AddRoute(){
 
     const postStation = e =>{
         e.preventDefault();
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-station?name=${input}`, {method: 'POST', mode:'no-cors'})
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-station?name=${input}`,
+         {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);
         });

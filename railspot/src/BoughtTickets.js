@@ -39,7 +39,7 @@ export default function BoughtTickets() {
 
     function getStationTickets() {
         setStation(search);
-        fetch("Url para conseguir tiquetes por estación"
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/get-by-station/${search}?From=1&Authorization=password`
             , { method: 'GET', mode: 'no-cors' })
             .then(function (response) {
                 tickets = response.json();
@@ -51,6 +51,7 @@ export default function BoughtTickets() {
 
     const updateSearch = e => {
         setSearch(e.target.value);
+        console.log(search);
     }
 
     return (

@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
-import DateFnsUtils from '@date-io/date-fns';
+//import DateFnsUtils from '@date-io/date-fns';
 
 import {
     MuiPickersUtilsProvider,
@@ -157,7 +157,8 @@ export default function BuyTickets() {
 
                         </Grid>
 
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <MuiPickersUtilsProvider >
+                             {/* utils={DateFnsUtils}> */}
 
                             <KeyboardDatePicker
                                 margin="normal"

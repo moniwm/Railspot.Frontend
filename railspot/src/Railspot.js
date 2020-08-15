@@ -13,6 +13,7 @@ import TicketsPurchased from './TicketsPurchased';
 import Nav from "./Nav";
 
 export default class Railspot extends React.Component{
+
         
 	render(){
 		return (
