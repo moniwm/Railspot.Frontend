@@ -53,7 +53,7 @@ export default function LogIn() {
   function LogInUser() {
     if (hasAccess) {
       if (!(id == "" || password == "")) {
-        setHasAccess(false);
+        //setHasAccess(false);
         fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`, {
           method: 'GET', mode: 'no-cors'
         })
@@ -69,7 +69,7 @@ export default function LogIn() {
         return "/BuyTickets";
       }
       else {
-        setHasAccess(false);
+        //setHasAccess(false);
         return "/";
       }   
     }

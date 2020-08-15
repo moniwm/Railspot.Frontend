@@ -35,7 +35,9 @@ export default function SignUp() {
   const [email, setEmail] = useState([""]);
   const [password, setPassword] = useState([""]);
   const [hasAccess, setHasAccess] = useState(false);
-
+/////
+  const [myData, setMyData] = useState();
+/////
   const updateFN = e => {
     e.preventDefault();
     setFirstName(e.target.value);
@@ -67,24 +69,27 @@ export default function SignUp() {
   function SignUpUser() {
     if (hasAccess) {
       if (!(firstName == "" || lastName == "" || id == "" || email == "" || password == "")) {
-        setHasAccess(false);
+        //setHasAccess(false);
 
         const fullName = firstName + lastName;
-      
+
         fetch(`http://localhost:8080/RailSpot.BackEnd/api/sign-up?id=${id}&name=${firstName}&email=${email}&password=${password}&admin=true`, {  
           method: 'POST', mode: 'no-cors'
         })
-        .then(function (data) {  
-          console.log('Request success: ', data);  
-        })  
-        .catch(function (error) {  
-          console.log('Request failure: ', error);  
+        .then(function(response){
+            console.log(response.statusText);
+        })
+        .then(function(json){
+          console.log('Request succeded with Json: ');
+        })
+        .catch(function(error){
+          console.log('Request failed');
         });
-  
+
         return "/BuyTickets";
       }
       else {
-        setHasAccess(false);
+        //setHasAccess(false);
         return "/SignUp";
       }
     }
