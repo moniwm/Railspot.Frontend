@@ -72,11 +72,11 @@ export default function BuyTickets() {
     setSelectedDate(date);
   };
 
-  const [stations, setStation] = useState([]);
+  const[stations, setStation] = useState([]);
 
-  useEffect(async () => {
-    try {
-      var httpResult = await axios({
+  useEffect(() => {
+    const fetchData = async () => {
+      const httpResult = await axios({
         method: "GET",
         url:
           "http://localhost:8080/RailSpot.BackEnd/api/tickets/get-stations?From=1&Authorization=password",
@@ -85,20 +85,10 @@ export default function BuyTickets() {
           "Content-Type": "application/json",
         },
       });
-      httpResult
-        .then((response) => {
-          this.setStations({
-            stations: response.data,
-          });
-          console.log(stations);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  });
+      setStation(httpResult.data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -106,7 +96,13 @@ export default function BuyTickets() {
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.routes}>
-            Hola
+        <ul>
+      {stations.map(item => (
+        <li>
+          {item.name}
+        </li>
+      ))}
+    </ul>
         </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
