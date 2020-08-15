@@ -2,20 +2,23 @@ import React, {useState} from 'react';
 import Nav from "./Nav";
 import "./Admin.css";
 import EditImage from "./images/editRoute.png"
+import User from './User';
 
 export default function EditRoute(){
     const [stationFrom, setStationFrom] = useState([""]);
     const [stationTo, setStationTo] = useState([""]);
     const [distance, setDistance] = useState([""]);
 
+    const lUser = User.getInstance ();
+
     function AddRoute() {
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, 
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}&From=${lUser.id}&Authorization=${lUser.password}`, 
         {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);
         });
 
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationTo}?destiny=${stationFrom}&distance=${distance}`, 
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationTo}?destiny=${stationFrom}&distance=${distance}&From=${lUser.id}&Authorization=${lUser.password}`, 
         {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);
@@ -27,13 +30,13 @@ export default function EditRoute(){
     }
 
     function ChangeRoute() {
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, 
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}&From=${lUser.id}&Authorization=${lUser.password}`, 
         {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);
         });
 
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/${stationTo}?destiny=${stationFrom}&distance=${distance}`, 
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/edit-connection/${stationTo}?destiny=${stationFrom}&distance=${distance}&From=${lUser.id}&Authorization=${lUser.password}`, 
         {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);

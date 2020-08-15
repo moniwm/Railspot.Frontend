@@ -2,22 +2,24 @@ import React, {useState}from 'react';
 import Nav from "./Nav";
 import "./Admin.css";
 import DeleteImage from "./images/deleteRoute.png"
-
+import User from './User';
 
 export default function DeleteRoute(){
 
     const [stationFrom, setStationFrom] = useState([""]);
     const [stationTo, setStationTo] = useState([""]);
 
+    const lUser = User.getInstance ();
+
     function DeleteRouteAux() {
 
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}`, 
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}&From=${lUser.id}&Authorization=${lUser.password}`, 
         {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);
         });
 
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationTo}?destiny=${stationFrom}`, 
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationTo}?destiny=${stationFrom}&From=${lUser.id}&Authorization=${lUser.password}`, 
         {method: 'POST', mode:'no-cors'})
         .then(function(response){
             console.log(response);
