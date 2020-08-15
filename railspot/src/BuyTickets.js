@@ -6,8 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import "./LogIn.css";
 import Nav from "./Nav";
-
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -16,10 +14,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import axios from "axios";
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
 //import DateFnsUtils from '@date-io/date-fns';
 
 
@@ -156,10 +150,6 @@ export default function BuyTickets() {
 
 
   const [open, setOpen] = React.useState(false);
-
-                        <MuiPickersUtilsProvider >
-                             {/* utils={DateFnsUtils}> */}
-
 
   const handleClickOpen = () => {
     setOpen(true);
