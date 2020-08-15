@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import './LogIn.css';
 import {Link} from 'react-router-dom';
-import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +36,7 @@ export default function LogIn() {
 
   const [id, setId] = useState([""]);
   const [password, setPassword] = useState([""]);
+  const [hasAccess, setHasAccess] = useState(false);
 
   const updateId = e => {
     setId(e.target.value);
@@ -46,25 +46,33 @@ export default function LogIn() {
     setPassword(e.target.value);
   }
 
+  function ChangeAccess() {
+    setHasAccess(true);
+  }
 
   function LogInUser() {
-    if (!(id == "" || password == "")) {
+    if (hasAccess) {
+      if (!(id == "" || password == "")) {
+        setHasAccess(false);
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`, {
+          method: 'GET', mode: 'no-cors'
+        })
+        .then(function (data) {
+          console.log('Request success: ', data);
+          console.log('NOO HUBO UN ERROR')
+        })
+        .catch(function (error) {
+          console.log('Request failure: ', error);
+          console.log('HUBO UN ERROR')
+        });
 
-      fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`, {  
-        method: 'GET', mode: 'no-cors'
-      })
-      .then(function (data) {  
-        console.log('Request success: ', data);
-        console.log('NOO HUBO UN ERROR') 
-      })  
-      .catch(function (error) {  
-        console.log('Request failure: ', error);  
-        console.log('HUBO UN ERROR')
-      });
-
-      return "/BuyTickets";
+        return "/BuyTickets";
+      }
+      else {
+        setHasAccess(false);
+        return "/";
+      }   
     }
-    return "/";
   }
 
   return (
@@ -110,6 +118,7 @@ export default function LogIn() {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
+                  onClick={ChangeAccess}
                   >
                   Sign In
                 </Button>
