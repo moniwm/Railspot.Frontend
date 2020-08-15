@@ -69,7 +69,7 @@ export default function SignUp() {
   function SignUpUser() {
     if (hasAccess) {
       if (!(firstName == "" || lastName == "" || id == "" || email == "" || password == "")) {
-        //setHasAccess(false);
+        setHasAccess(false);
 
         const fullName = firstName + lastName;
 
@@ -86,7 +86,7 @@ export default function SignUp() {
           console.log('Request failed');
         });
 
-        const loggedUser = new User(id, password, firstName, email);
+        const loggedUser = new User(id, password, firstName, email, true);
 
         return "/EditRoute";
       }

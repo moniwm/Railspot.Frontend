@@ -37,6 +37,10 @@ export default function LogIn() {
 
   const [id, setId] = useState([""]);
   const [password, setPassword] = useState([""]);
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [admin, setAdmin] = useState();
+
   const [hasAccess, setHasAccess] = useState(false);
 
   const updateId = e => {
@@ -51,24 +55,32 @@ export default function LogIn() {
     setHasAccess(true);
   }
 
-  function LogInUser() {
+  const LogInUser = async () => {
     if (hasAccess) {
       if (!(id == "" || password == "")) {
         //setHasAccess(false);
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`, {
-          method: 'GET', mode: 'no-cors'
+        const myData = await fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`)
+        .then(function(resp){
+          return resp.json();
         })
-        .then(function (data) {
-          console.log('Request success: ', data);
-          console.log('NOO HUBO UN ERROR')
-        })
-        .catch(function (error) {
-          console.log('Request failure: ', error);
-          console.log('HUBO UN ERROR')
+        .then(function(data){
+            console.log(data.id);
+            setId(data.id);
+            setName(data.name);
+            setEmail(data.email);
+            setAdmin(data.admin);
         });
 
-        const loggedUser = new User(id, password);
+        console.log("The id is: ");
+        // console.log(id);
+        // console.log(password);
+        // console.log(name);
+        // console.log(admin);
+        // console.log(email);
 
+        const loggedUser = new User(id, password, name, email, admin);
+
+        console.log(loggedUser);
         return "/EditRoute";
       }
       else {
@@ -115,7 +127,7 @@ export default function LogIn() {
             />
             
             <Link to={LogInUser}>
-              <Button
+                <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -123,7 +135,7 @@ export default function LogIn() {
                   className={classes.submit}
                   onClick={ChangeAccess}
                   >
-                  Sign In
+                  Login
                 </Button>
             </Link>    
             <Grid container>
