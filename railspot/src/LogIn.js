@@ -46,9 +46,22 @@ export default function LogIn() {
     setPassword(e.target.value);
   }
 
+
   function LogInUser() {
     if (!(id == "" || password == "")) {
-      //Aqui va la peticion del ususario
+
+      fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`, {  
+        method: 'GET', mode: 'no-cors'
+      })
+      .then(function (data) {  
+        console.log('Request success: ', data);
+        console.log('NOO HUBO UN ERROR') 
+      })  
+      .catch(function (error) {  
+        console.log('Request failure: ', error);  
+        console.log('HUBO UN ERROR')
+      });
+
       return "/BuyTickets";
     }
     return "/";
