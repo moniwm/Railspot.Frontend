@@ -34,6 +34,7 @@ export default function SignUp() {
   const [id, setId] = useState([""]);
   const [email, setEmail] = useState([""]);
   const [password, setPassword] = useState([""]);
+  const [hasAccess, setHasAccess] = useState(false);
 
   const updateFN = e => {
     e.preventDefault();
@@ -60,68 +61,33 @@ export default function SignUp() {
     setPassword(e.target.value);
   }
 
-  function SignUpUser() {
-    return SignUpUserAux();
+  function ChangeAccess() {
+    setHasAccess(true);
   }
+  function SignUpUser() {
+    if (hasAccess) {
+      if (!(firstName == "" || lastName == "" || id == "" || email == "" || password == "")) {
+        setHasAccess(false);
 
-  function SignUpUserAux() {
-    if (!(firstName == "" || lastName == "" || id == "" || email == "" || password == "")) {
-      // fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/new-connection/${stationFrom}?destiny=${stationTo}&distance=${distance}`, 
-      //   {method: 'POST', mode:'no-cors'})
-      //   .then(function(response){
-      //       console.log(response);
-      //   });
-
-      // axios({
-      //   method: 'post', mode
-      //   url: "http://localhost:8080/RailSpot.BackEnd/api/sign-up",
-      //   data: {
-      //     "id": "118090892",
-      //     "name": "Juan",
-      //     "email": "juan@gmail.com",
-      //     "password": "123",
-      //     "admin": false
-      //   }
-      // });
-
-      // fetch('http://localhost:8080/RailSpot.BackEnd/api/sign-up', {
-      //   method: 'POST',
-      //   mode: "no-cors", 
-      //   headers: {
-      //     "id": "118090892",
-      //     "name": "Juan",
-      //     "email": "juan@gmail.com",
-      //     "password": "123",
-      //     "admin": false
-      //   }
-      // })
-
-      // fetch('http://localhost:8080/RailSpot.BackEnd/api/sign-up', {
-      //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      //     body: JSON.stringify({
-      //       id: "118090892",
-      //       name: "Juan",
-      //       email: "juan@gmail.com",
-      //       password: "123",
-      //       admin: false
-      //     }) // body data type must match "Content-Type" header
-      // });
-      const fullName = firstName + lastName;
+        const fullName = firstName + lastName;
       
-      fetch(`http://localhost:8080/RailSpot.BackEnd/api/sign-up?id=${id}&name=${firstName}&email=${email}&password=${password}&admin=true`, {  
-        method: 'POST', mode: 'no-cors'
-      })
-      .then(function (data) {  
-        console.log('Request success: ', data);  
-      })  
-      .catch(function (error) {  
-        console.log('Request failure: ', error);  
-      });
-
-      return "/BuyTickets";
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/sign-up?id=${id}&name=${firstName}&email=${email}&password=${password}&admin=true`, {  
+          method: 'POST', mode: 'no-cors'
+        })
+        .then(function (data) {  
+          console.log('Request success: ', data);  
+        })  
+        .catch(function (error) {  
+          console.log('Request failure: ', error);  
+        });
+  
+        return "/BuyTickets";
+      }
+      else {
+        setHasAccess(false);
+        return "/SignUp";
+      }
     }
-    console.log("efwf");
-    return "/SignUp";
   }
 
   return (
@@ -211,6 +177,7 @@ export default function SignUp() {
                       variant="contained"
                       color="primary"
                       className={classes.submit}
+                      onClick={ChangeAccess}
                       >
                       Sign Up
                     </Button>
