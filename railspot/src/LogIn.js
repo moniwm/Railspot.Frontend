@@ -55,11 +55,11 @@ export default function LogIn() {
     setHasAccess(true);
   }
 
-  const LogInUser = async () => {
+  function LogInUser () {
     if (hasAccess) {
       if (!(id == "" || password == "")) {
         //setHasAccess(false);
-        const myData = await fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`)
+        const myData =  fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`)
         .then(function(resp){
           return resp.json();
         })
@@ -80,7 +80,7 @@ export default function LogIn() {
 
         const loggedUser = new User(id, password, name, email, admin);
 
-        console.log(loggedUser);
+        console.log(loggedUser);                                                                                          
         return "/EditRoute";
       }
       else {
