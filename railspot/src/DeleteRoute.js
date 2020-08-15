@@ -2,28 +2,31 @@ import React, {useState}from 'react';
 import Nav from "./Nav";
 import "./Admin.css";
 import DeleteImage from "./images/deleteRoute.png"
-
+import User from './User';
 
 export default function DeleteRoute(){
 
     const [stationFrom, setStationFrom] = useState([""]);
     const [stationTo, setStationTo] = useState([""]);
 
-    function DeleteRouteAux() {
-        console.log("deleted from: " + stationFrom + " to: " + stationTo);
-        
-        // fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}`, 
-        // {method: "DELETE", mode:"no-cors"})
-        // .then(function(response){
-        //     console.log(response);
-        // });
+    const lUser = User.getInstance ();
 
-        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}`, {
-        method: 'DELETE', headers: {
-            "Access-Control-Request-Method" : "DELETE",
-            "Access-Control-Allow-Origin" : "*",
-        }
-        }).then(response => response.json());
+    function DeleteRouteAux() {
+
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationFrom}?destiny=${stationTo}&From=${lUser.id}&Authorization=${lUser.password}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        fetch(`http://localhost:8080/RailSpot.BackEnd/api/admin/delete-connection/${stationTo}?destiny=${stationFrom}&From=${lUser.id}&Authorization=${lUser.password}`, 
+        {method: 'POST', mode:'no-cors'})
+        .then(function(response){
+            console.log(response);
+        });
+
+        setStationFrom("");
+        setStationTo("");
     }
 
     const UpdateFrom = e => {

@@ -1,15 +1,40 @@
 .Page{
-    min-height: 100vh;
+    min-height: 50vh;
     background-color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
 }
+
+.PageTicket{
+    min-height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1cm;
+}
+
+.BoxTicket{
+    height: 550px;
+    width: 650px;
+    background-color: white;
+    border-color: rgb(19, 123, 184);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1cm;
+}
  
 .Box {
-    height: 600px;
-    width: 400px;
+    height: 550px;
+    width: 350px;
     background-color: white;
     border-color: rgb(19, 123, 184);
     border-width: 2px;

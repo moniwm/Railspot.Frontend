@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import './LogIn.css';
 import {Link} from 'react-router-dom';
+import User from './User' ;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,61 @@ const useStyles = makeStyles((theme) => ({
 export default function LogIn() {
   const classes = useStyles();
 
+  const [id, setId] = useState([""]);
+  const [password, setPassword] = useState([""]);
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [admin, setAdmin] = useState();
+
+  const [hasAccess, setHasAccess] = useState(false);
+
+  const updateId = e => {
+    setId(e.target.value);
+  }
+
+  const updatePassword = e => {
+    setPassword(e.target.value);
+  }
+
+  function ChangeAccess() {
+    setHasAccess(true);
+  }
+
+  function LogInUser () {
+    if (hasAccess) {
+      if (!(id == "" || password == "")) {
+        //setHasAccess(false);
+        const myData =  fetch(`http://localhost:8080/RailSpot.BackEnd/api/users/${id}`)
+        .then(function(resp){
+          return resp.json();
+        })
+        .then(function(data){
+            console.log(data.id);
+            setId(data.id);
+            setName(data.name);
+            setEmail(data.email);
+            setAdmin(data.admin);
+        });
+
+        console.log("The id is: ");
+        // console.log(id);
+        // console.log(password);
+        // console.log(name);
+        // console.log(admin);
+        // console.log(email);
+
+        const loggedUser = new User(id, password, name, email, admin);
+
+        console.log(loggedUser);                                                                                          
+        return "/EditRoute";
+      }
+      else {
+        setHasAccess(false);
+        return "/";
+      }   
+    }
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -53,6 +109,8 @@ export default function LogIn() {
               name="id"
               autoComplete="id"
               autoFocus
+              value={id}
+              onChange={updateId}
             />
             <TextField
               variant="outlined"
@@ -64,19 +122,22 @@ export default function LogIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={updatePassword}
             />
-            <Link to="/BuyTickets">
-                <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        >
-                        Sign In
-                </Button>
-            </Link>
             
+            <Link to={LogInUser}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={ChangeAccess}
+                  >
+                  Login
+                </Button>
+            </Link>    
             <Grid container>
               <Grid item>
                 <Link to="/SignUp" variant="body2">

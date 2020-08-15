@@ -7,24 +7,25 @@ const useStyles = makeStyles ((theme) => ({
         margin: theme.spacing(2, 25),
         border: '2px solid black',
         borderRadius: '10px',
-        //width: '30%',
+        flexDirection: 'row',
         background: 'red',
         display: 'flex',
         flexDirection: 'column',
-        //justifyContent: 'center',
-        //alignIOtems: 'center',
+
     },
 }));
 
-export default function Ticket({from, to, date, cost, hour}){
+export default function Ticket({userId, departureStation, arrivalStation, price, date, hour, amount}){
     const classes = useStyles();
     return (
         <div className={classes.ticket}>
-            <h3>From: {from}</h3>
-            <h3>To: {to}</h3>
-            <h3>Cost: {cost}</h3>
+            <h3>User Id: {userId}</h3>
+            <h3>From: {departureStation}</h3>
+            <h3>To: {arrivalStation}</h3>
+            <h3>Price: {price}</h3>
             <h3>Date: {date}</h3>
             <h3>Hour: {hour}</h3>
+            <h3>Amount of tickets: {amount}</h3>
         </div>
     );
 }

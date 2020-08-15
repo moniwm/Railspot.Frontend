@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import {Link} from 'react-router-dom'
+import User from './User' ;
+
 
 const useStyles = makeStyles((theme) =>({
     nav:{
@@ -29,12 +31,20 @@ export default function Nav(){
         textDecoration: "none"
     };
 
+    const loggedUser = User.getInstance();
+
+    function AdminAccess(){
+        if (loggedUser.admin){
+            return "/Admin";
+        }
+    }
+
     return (
         <nav className={classes.nav}>
             <h3>RailSpot</h3>
             <ul className={classes.navLinks}>
 
-                <Link to="/Admin" style={navStyle}> 
+                <Link to={AdminAccess} style={navStyle}> 
                     <li>ADMIN</li>
                 </Link>
                 <Link to="/BuyTickets" style={navStyle}>
