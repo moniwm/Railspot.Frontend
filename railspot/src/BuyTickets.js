@@ -21,6 +21,19 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
@@ -44,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   routes: {
-    backgroundColor: "#D8E0EE",
+    backgroundColor: "#DFE5EA",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -97,16 +110,10 @@ export default function BuyTickets() {
 
   const handleStartLocation = (event) => {
     setStartLocation(event.target.value);
-    if (destiny == startLocation) {
-      setStartLocation("");
-    }
   };
 
   const handleDestiny = (event) => {
     setDestiny(event.target.value);
-    if (destiny == startLocation) {
-      setDestiny("");
-    }
   };
 
   const handleQuantity = (event) => {
@@ -139,12 +146,70 @@ export default function BuyTickets() {
     }
   }
 
+  
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   return (
     <div>
       <Nav />
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.routes}></Grid>
+        <Grid item xs={false} sm={4} md={7} className={classes.routes}>
+        <div className={classes.paper}>
+        <Typography component="h1" variant="h5">
+              Available stations
+            </Typography>
+
+            <Grid container spacing={2} className={classes.options}>
+
+            {stations.map((item) => (
+                      <Grid item xs={12} sm={6}>
+
+                        <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.formControl}>
+        {item.name}
+      </Button>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Let Google help apps determine location. This means sending anonymous location data to
+            Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+                        </Grid>
+                        
+                    ))}
+             
+              
+            </Grid>
+            
+        </div>
+        </Grid>
+
+
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
