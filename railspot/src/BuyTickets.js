@@ -97,10 +97,16 @@ export default function BuyTickets() {
 
   const handleStartLocation = (event) => {
     setStartLocation(event.target.value);
+    if (destiny == startLocation) {
+      setStartLocation("");
+    }
   };
 
   const handleDestiny = (event) => {
     setDestiny(event.target.value);
+    if (destiny == startLocation) {
+      setDestiny("");
+    }
   };
 
   const handleQuantity = (event) => {
@@ -125,12 +131,13 @@ export default function BuyTickets() {
 
   const postTicket = e =>{
     e.preventDefault();
-    fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/buy-ticket?user=1&origin=${startLocation}&destiny=${destiny}&date=${selectedDate}&hour=${time}&amount=${quantity}&From=1&Authorization=password`, {method: 'POST', mode:'no-cors'})
-    .then(function(response){
-        console.log(response);
-    });
-}
-
+    if (!(startLocation == "" || destiny == "" || quantity == "" || time == "" || selectedDate == "" )) {
+      fetch(`http://localhost:8080/RailSpot.BackEnd/api/tickets/buy-ticket?user=1&origin=${startLocation}&destiny=${destiny}&date=${selectedDate}&hour=${time}&amount=${quantity}&From=1&Authorization=password`, {method: 'POST', mode:'no-cors'})
+      .then(function(response){
+          console.log(response);
+      });
+    }
+  }
 
   return (
     <div>
